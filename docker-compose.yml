@@ -1,0 +1,111 @@
+version: "3.5"
+
+services:
+  database:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1a2b3c4d5e
+      - POSTGRES_DB=db_tcb
+    ports:
+      - 5432:5432
+    networks:
+      - net_database
+    volumes:
+      - ~/docker/tcb/postgres/data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "thiago.alessandro@totvs.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "1a2b3c4d5e"
+    ports:
+      - "8099:80"
+    depends_on:
+      - database
+    networks:
+      - net_database
+  app:
+    image: tcb-web:1.0
+    depends_on:
+      - database
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/tcb-web
+      - ~/.m2:/root/.m2
+    ports:
+      - 8080:8080
+    working_dir: /tcb-web
+    environment:
+      - spring_profiles_active=dev
+    command: mvn clean spring-boot:run
+    networks:
+      - net_database
+      - net_web
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.3.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.3.1
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+  kafka:
+    image: confluentinc/cp-enterprise-kafka:5.3.1
+    ports:
+      - '9092:9092'
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+      CONNECT_PLUGIN_PATH=/usr/share/java, /etc/confluent/kafka-connect-postgresql
+    volumes:
+      - ~/docker/tcb/confluent:/etc/confluent
+  connect-debezium:
+    image: debezium/connect:0.8
+    ports:
+      - 8083:8083
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:29092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_status
+      - KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
+      - CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+    depends_on:
+      - kafka
+      - schema-registry
+    volumes:
+      - ~/docker/tcb/scripts:/scripts
+volumes:
+  mysql:
+    external: true
+networks:
+  net_web:
+  net_database:
+    driver: bridge
