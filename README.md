@@ -1,6 +1,5 @@
 # tcb-web
 
-
 # Debezium
 
 ## O que é o Debezium?
@@ -117,6 +116,10 @@ Cada *record* produzido pelo conector PostgreSQL possui, além do evento do banc
 
 Todos os eventos de alteração de dados produzidos pelo conector PostgreSQL possuem uma chave e um valor, embora a estrutura da chave e do valor dependa da tabela da qual os eventos de alteração foram originados
 
+### Instalando o conector debezium
+
+Se você já instalou o Zookeeper , o Kafka e o Kafka Connect , é fácil usar o conector PostgreSQL do Debezium. Basta baixar o arquivo de plug-in do conector , extrair os JARs para o ambiente do Kafka Connect e adicionar o diretório com os JARs ao caminho de classe do Kafka Connect . Reinicie seu processo Kafka Connect para pegar os novos JARs.
+
 ## Referências
 https://medium.com/@singaretti/postgresql-debezium-kafka-s3-5efd9b8eced
 
@@ -128,4 +131,3 @@ https://debezium.io/documentation/reference/0.9/connectors/postgresql.html
 
 https://github.com/debezium/docker-images/blob/master/postgres/10/Dockerfile
 
-##

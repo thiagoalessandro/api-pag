@@ -1,0 +1,13 @@
+{
+  "name": "postgres_debezium_tcb_main",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "db_tcb_main",
+    "database.hostname": "database",
+    "database.history.kafka.topic": "schema-changes.db_tcb_main",
+    "plugin.name": "wal2json"
+  }
+}
