@@ -2,16 +2,16 @@ version: "3.5"
 
 services:
   database:
-    image: mysql:5.7
+    build:
+      dockerfile: Dockerfile-postgres-decoderbufs-wal2json
+      context: docker
+    restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: '123456'
-        MYSQL_PASSWORD: 'dbz'
-        MYSQL_USER: 'debezium'
-        MYSQL_DATABASE: 'db_tcb_main'
-    volumes:
-      - ./docker/conf/my.cnf:/etc/mysql/my.cnf
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db_tcb_main
     ports:
-      - 3306:3306
+      - 5432:5432
   pgadmin:
     image: dpage/pgadmin4
     environment:
