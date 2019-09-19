@@ -1,18 +1,18 @@
 {
   "name": "connector_tcb_main",
   "config": {
-    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-    "database.port": "5432",
-    "database.user": "postgres",
-    "database.password": "postgres",
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "database.hostname": "database",
+    "database.port": "3306",
+    "database.user": "root",
+    "database.password": "123456",
     "database.dbname": "db_tcb_main",
     "database.server.name": "database",
     "database.history.kafka.topic": "schema-changes.db_tcb_main",
+    "database.server.id": "223344",
     "plugin.name": "wal2json",
     "database.whitelist": "db_tcb_main",
-    "schema.whitelist": "tcb",
-    "snapshot.mode": "initial",
-    "plugin.name": "wal2json",
-    "snapshot.lock.timeout.ms": "10000"
+    "include.schema.changes": "true",
+    "database.history.kafka.bootstrap.servers": "localhost:9092"
   }
 }

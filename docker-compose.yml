@@ -2,16 +2,16 @@ version: "3.5"
 
 services:
   database:
-    build:
-      dockerfile: Dockerfile-postgres-decoderbufs-wal2json
-      context: docker
-    restart: always
+    image: mysql:5.7
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=db_tcb_main
+        MYSQL_ROOT_PASSWORD: '123456'
+        MYSQL_PASSWORD: 'dbz'
+        MYSQL_USER: 'debezium'
+        MYSQL_DATABASE: 'db_tcb_main'
+    volumes:
+      - ./docker/conf/my.cnf:/etc/mysql/my.cnf
     ports:
-      - 5432:5432
+      - 3306:3306
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -55,7 +55,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_MIN_INSYNC_REPLICAS: 1
   connect-debezium:
-    image: debezium/connect:0.9
+    image: debezium/connect:0.10
     ports:
       - 8083:8083
     links:
