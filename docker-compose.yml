@@ -2,15 +2,16 @@ version: "3.5"
 
 services:
   database:
-    image: debezium/example-postgres:0.9
-    ports:
-      - 5432:5432
+    build:
+      dockerfile: Dockerfile-postgres-decoderbufs-wal2json
+      context: docker
+    restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=db_tcb_main
-    #networks:
-    #  - net_database
+    ports:
+      - 5432:5432
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -20,8 +21,6 @@ services:
       - "8099:80"
     depends_on:
       - database
-    #networks:
-    #  - net_database
   app:
     image: maven:3.5-jdk-8
     depends_on:
@@ -35,61 +34,47 @@ services:
     environment:
       - spring_profiles_active=dev
     command: mvn clean spring-boot:run
-    #networks:
-    #  - net_database
-    #  - net_web
   zookeeper:
-    image: debezium/zookeeper:0.9
+    image: confluentinc/cp-zookeeper
     ports:
-      - 2181:2181
-      - 2888:2888
-      - 3888:3888
-    #networks:
-    #  - net_broker
-  kafka:
-    image: debezium/kafka:0.9
-    ports:
-      - 9092:9092
-    links:
-      - zookeeper
+      - "2181:2181"
     environment:
-      - ZOOKEEPER_CONNECT=zookeeper:2181
-    #networks:
-    #  - net_database
-    #  - net_broker
+      ZOOKEEPER_CLIENT_PORT: 2181
+  kafka:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+      - database
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_CLEANER_DELETE_RETENTION_MS: 5000
+      KAFKA_BROKER_ID: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
   connect-debezium:
     image: debezium/connect:0.9
     ports:
       - 8083:8083
     links:
-      - kafka
       - zookeeper
       - database
+      - kafka
     environment:
-      - BOOTSTRAP_SERVERS=kafka:9092
-      - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=my_connect_configs
-      - OFFSET_STORAGE_TOPIC=my_connect_offsets
-      - STATUS_STORAGE_TOPIC=my_connect_status
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      BOOTSTRAP_SERVERS: kafka:9092
       #- KEY_CONVERTER=io.confluent.connect.avro.AvroConverter
       #- VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter
       #- CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
       #- CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081
     depends_on:
+      - zookeeper
       - kafka
       - database
-    #command: curl -i -X POST -H 'Accept:application/json' -H 'Content-Type:application/json' http://localhost:8083/connectors/ -d n/@register-postgres-connector.json
-    #networks:
-    #  - net_database
-    #  - net_broker
     volumes:
       - ~/docker/tcb/scripts:/scripts
-      - ./docker/conf/register-postgres-connector.json:/tcb-web/docker/conf/register-postgres-connector.json
-    working_dir: /tcb-web/docker/conf
-volumes:
-  mysql:
-    external: true
-#networks:
-#  net_web:
-#  net_database:
-#  net_broker:
+

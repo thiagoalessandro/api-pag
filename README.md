@@ -120,7 +120,50 @@ Todos os eventos de alteração de dados produzidos pelo conector PostgreSQL pos
 
 Se você já instalou o Zookeeper , o Kafka e o Kafka Connect , é fácil usar o conector PostgreSQL do Debezium. Basta baixar o arquivo de plug-in do conector , extrair os JARs para o ambiente do Kafka Connect e adicionar o diretório com os JARs ao caminho de classe do Kafka Connect . Reinicie seu processo Kafka Connect para pegar os novos JARs.
 
+## REST API - Gerenciando conectores
+
+- GET /connectors - return a list of active connectors
+- POST /connectors - create a new connector; the request body should be a JSON object containing a string name field and a object config field with the connector configuration parameters
+- GET /connectors/{name} - get information about a specific connector
+- GET /connectors/{name}/config - get the configuration parameters for a specific connector
+- PUT /connectors/{name}/config - update the configuration parameters for a specific connector
+- GET /connectors/{name}/status - get current status of the connector, including if it is running, failed, paused, etc., which worker it is assigned to, error information if it has failed, and the state of all its tasks
+- GET /connectors/{name}/tasks - get a list of tasks currently running for a connector
+- GET /connectors/{name}/tasks/{taskid}/status - get current status of the task, including if it is running, failed, paused, etc., which worker it is assigned to, and error information if it has failed
+- PUT /connectors/{name}/pause - pause the connector and its tasks, which stops message processing until the connector is resumed
+- PUT /connectors/{name}/resume - resume a paused connector (or do nothing if the connector is not paused)
+- POST /connectors/{name}/restart - restart a connector (typically because it has failed)
+- POST /connectors/{name}/tasks/{taskId}/restart - restart an individual task (typically because it has failed)
+- DELETE /connectors/{name} - delete a connector, halting all tasks and deleting its configuration
+
+## Criando um Conector
+
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-postgres-connector.json
+
+register-postgres-connector.json
+```json
+{
+  "name": "connector_tcb_main",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "db_tcb_main",
+    "database.server.name": "database",
+    "database.history.kafka.topic": "schema-changes.db_tcb_main",
+    "plugin.name": "wal2json",
+    "database.whitelist": "db_tcb_main",
+    "schema.whitelist": "tcb",
+    "snapshot.mode": "initial",
+    "plugin.name": "wal2json",
+    "snapshot.lock.timeout.ms": "10000"
+  }
+}
+```
+
 ## Referências
+
 https://medium.com/@singaretti/postgresql-debezium-kafka-s3-5efd9b8eced
 
 https://docs.confluent.io/current/quickstart/ce-docker-quickstart.html#ce-docker-quickstart
@@ -131,3 +174,4 @@ https://debezium.io/documentation/reference/0.9/connectors/postgresql.html
 
 https://github.com/debezium/docker-images/blob/master/postgres/10/Dockerfile
 
+https://archive.cloudera.com/kafka/kafka/2/kafka-0.10.0-kafka2.1.0/connect.html
