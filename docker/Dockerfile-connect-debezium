@@ -1,0 +1,16 @@
+FROM alpine:3.8
+
+LABEL maintainer="TOTVS"
+
+RUN apk add --no-cache curl
+
+COPY configuration/register-postgres-connector.json /configuration/register-postgres-connector.json
+
+RUN echo "Registrando connector"
+
+RUN cat /configuration/register-postgres-connector.json
+
+ENTRYPOINT ["/usr/bin/curl"]
+
+RUN curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" http://localhost:8083/connectors/ -d @/configuration/register-postgres-connector.json
+

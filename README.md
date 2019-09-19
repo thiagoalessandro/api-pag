@@ -138,28 +138,61 @@ Se você já instalou o Zookeeper , o Kafka e o Kafka Connect , é fácil usar o
 
 ## Criando um Conector
 
-curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-postgres-connector.json
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" http://localhost:8083/connectors/ -d @docker/configuration/register-postgres-connector.json
 
 register-postgres-connector.json
 ```json
 {
-  "name": "connector_tcb_main",
-  "config": {
-    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-    "database.port": "5432",
-    "database.user": "postgres",
-    "database.password": "postgres",
-    "database.dbname": "db_tcb_main",
-    "database.server.name": "database",
-    "database.history.kafka.topic": "schema-changes.db_tcb_main",
-    "plugin.name": "wal2json",
-    "database.whitelist": "db_tcb_main",
-    "schema.whitelist": "tcb",
-    "snapshot.mode": "initial",
-    "plugin.name": "wal2json",
-    "snapshot.lock.timeout.ms": "10000"
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "database.hostname": "database",
+      "database.port": "5432",
+      "database.user": "postgres",
+      "database.password": "postgres",
+      "database.dbname": "db_tcb_main",
+      "database.server.name": "database",
+      "database.history.kafka.topic": "schema-changes.db_tcb_main",
+      "plugin.name": "wal2json",
+      "database.whitelist": "db_tcb_main",
+      "include.schema.changes": "true",
+      "database.history.kafka.bootstrap.servers": "localhost:9092"
   }
 }
+```
+
+## KAFKA
+
+Criar tópicos
+```
+$ kafka-topics --zookeeper 127.0.0.1:2181 --create --topic first_topic --partition 3 --replication-factor 1
+```
+
+Listar tópicos
+
+```
+kafka-topics --zookeeper zookeeper:2181 --list
+```
+
+Remover tópicos
+
+```
+kafka-topics --zookeeper zookeeper:2181 --topic database.public.remessa --delete
+```
+
+Detalhando tópicos
+
+```
+kafka-topics --zookeeper zookeeper:2181 --topic database.public.remessa --describe
+```
+
+Consumindo mensagens com Consumers
+
+```
+kafka-console-consumer --bootstrap-server kafka:9092 --topic database.public.remessa2 --from-beginning
+```
+
+Verificar slot de replicação
+```
+select pg_drop_replication_slot('connector_tcb_main_remessa');
 ```
 
 ## Referências
@@ -175,3 +208,7 @@ https://debezium.io/documentation/reference/0.9/connectors/postgresql.html
 https://github.com/debezium/docker-images/blob/master/postgres/10/Dockerfile
 
 https://archive.cloudera.com/kafka/kafka/2/kafka-0.10.0-kafka2.1.0/connect.html
+
+https://medium.com/data-hackers/mensageria-de-alta-performance-com-apache-kafka-2-ac6e5c0538e1
+
+https://gist.github.com/jpsoroulas/30e9537138ca62a79fe261cff7ceb716

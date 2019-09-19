@@ -8,10 +8,13 @@
     "database.password": "postgres",
     "database.dbname": "db_tcb_main",
     "database.server.name": "database",
-    "database.history.kafka.topic": "schema-changes.db_tcb_main",
     "plugin.name": "wal2json",
     "database.whitelist": "db_tcb_main",
-    "include.schema.changes": "true",
-    "database.history.kafka.bootstrap.servers": "localhost:9092"
+    "schema.whitelist": "public",
+    "table.whitelist": "remessa",
+    "include.schema.changes": "false",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "snapshot.mode": "initial",
+    "snapshot.lock.timeout.ms": "10000"
   }
 }
