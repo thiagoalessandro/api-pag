@@ -75,6 +75,3 @@ services:
       - zookeeper
       - kafka
       - database
-    volumes:
-      - ~/docker/tcb/scripts:/scripts
-
