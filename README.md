@@ -187,12 +187,13 @@ kafka-topics --zookeeper zookeeper:2181 --topic database.public.remessa --descri
 Consumindo mensagens com Consumers
 
 ```
-kafka-console-consumer --bootstrap-server kafka:9092 --topic database.public.remessa2 --from-beginning
+kafka-console-consumer --bootstrap-server kafka:9092 --topic database.public.remessa --from-beginning
 ```
 
 Verificar slot de replicação
 ```
-select pg_drop_replication_slot('connector_tcb_main_remessa');
+select pg_drop_replication_slot('postgres');
+select * from pg_replication_slots;
 ```
 
 ## Referências

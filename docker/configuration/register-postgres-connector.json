@@ -1,5 +1,5 @@
 {
-  "name": "connector_tcb_main_postgres",
+  "name": "connector_tcb_main_remessa",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
     "database.hostname": "database",
@@ -8,12 +8,11 @@
     "database.password": "postgres",
     "database.dbname": "db_tcb_main",
     "database.server.name": "database",
-    "plugin.name": "wal2json",
     "database.whitelist": "db_tcb_main",
-    "schema.whitelist": "public",
-    "table.whitelist": "remessa",
+    "database.history.kafka.bootstrap.servers": "localhost:9092",
+    "plugin.name": "wal2json",
+    "table.whitelist": "public.remessa",
     "include.schema.changes": "false",
-    "database.history.kafka.bootstrap.servers": "kafka:9092",
     "snapshot.mode": "initial",
     "snapshot.lock.timeout.ms": "10000"
   }
