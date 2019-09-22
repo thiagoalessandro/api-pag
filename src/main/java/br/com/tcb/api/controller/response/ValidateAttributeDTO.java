@@ -1,6 +1,6 @@
-package br.com.intelector.api.controller.response;
+package br.com.tcb.api.controller.response;
 
-import br.com.intelector.api.controller.enums.ValidateTypeEnum;
+import br.com.tcb.api.controller.enums.ValidateTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

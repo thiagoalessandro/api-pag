@@ -1,6 +1,6 @@
-package br.com.intelector.api.controller.utils;
+package br.com.tcb.api.controller.utils;
 
-import br.com.intelector.api.controller.response.Response;
+import br.com.tcb.api.controller.response.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

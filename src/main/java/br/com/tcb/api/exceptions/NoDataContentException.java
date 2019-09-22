@@ -1,4 +1,4 @@
-package br.com.intelector.api.exceptions;
+package br.com.tcb.api.exceptions;
 
 public class NoDataContentException extends Exception{
 

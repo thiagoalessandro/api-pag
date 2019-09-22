@@ -1,6 +1,6 @@
-package br.com.intelector.api.repository;
+package br.com.tcb.api.repository;
 
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
+import br.com.tcb.api.model.enums.SituacaoRegistroEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

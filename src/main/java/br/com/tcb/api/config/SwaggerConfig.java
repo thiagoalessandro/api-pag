@@ -1,7 +1,5 @@
-package br.com.intelector.api.config;
+package br.com.tcb.api.config;
 
-import br.com.intelector.api.config.utils.ConfigurationAppUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -18,13 +16,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Autowired
-    private ConfigurationAppUtil configurationAppUtil;
-
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.intelector.api.controller"))
+                .apis(RequestHandlerSelectors.basePackage("br.com.tcb.api.controller"))
                 .paths(PathSelectors.any()).build()
                 .apiInfo(apiInfo());
     }

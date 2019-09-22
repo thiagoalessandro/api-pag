@@ -1,7 +1,7 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.model.*;
-import br.com.intelector.api.repository.SegMenuRepository;
+import br.com.tcb.api.model.*;
+import br.com.tcb.api.repository.SegMenuRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

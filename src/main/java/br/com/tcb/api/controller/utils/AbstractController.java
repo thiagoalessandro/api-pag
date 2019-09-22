@@ -1,23 +1,19 @@
-package br.com.intelector.api.controller.utils;
+package br.com.tcb.api.controller.utils;
 
-import br.com.intelector.api.controller.enums.ValidateTypeEnum;
-import br.com.intelector.api.controller.response.Response;
-import br.com.intelector.api.controller.response.ValidateAttributeDTO;
-import br.com.intelector.api.exceptions.NoDataContentException;
-import br.com.intelector.api.model.AbstractEntity;
-import br.com.intelector.api.model.SegOperacao;
-import br.com.intelector.api.security.utils.HasAuthorityUtil;
-import br.com.intelector.api.service.GenericService;
+import br.com.tcb.api.controller.enums.ValidateTypeEnum;
+import br.com.tcb.api.controller.response.Response;
+import br.com.tcb.api.controller.response.ValidateAttributeDTO;
+import br.com.tcb.api.exceptions.NoDataContentException;
+import br.com.tcb.api.model.AbstractEntity;
+import br.com.tcb.api.security.utils.HasAuthorityUtil;
+import br.com.tcb.api.service.GenericService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;

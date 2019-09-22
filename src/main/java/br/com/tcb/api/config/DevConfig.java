@@ -1,4 +1,4 @@
-package br.com.intelector.api.config;
+package br.com.tcb.api.config;
 
 import javax.activation.DataSource;
 

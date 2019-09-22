@@ -1,9 +1,7 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.model.SegFuncionalidade;
-import br.com.intelector.api.model.SegUsuario;
-import br.com.intelector.api.repository.SegFuncionalidadeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.tcb.api.model.SegFuncionalidade;
+import br.com.tcb.api.repository.SegFuncionalidadeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

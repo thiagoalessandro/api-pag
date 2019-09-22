@@ -1,4 +1,4 @@
-package br.com.intelector.api.model;
+package br.com.tcb.api.model;
 
 import java.util.List;
 
@@ -13,9 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity

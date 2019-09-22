@@ -1,4 +1,4 @@
-package br.com.intelector.api.config.utils;
+package br.com.tcb.api.config.utils;
 
 import lombok.Getter;
 import lombok.Setter;

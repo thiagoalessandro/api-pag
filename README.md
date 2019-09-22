@@ -1,9 +1,6 @@
-# tcb-web
+# tcb-api
 
 # Debezium
-
-## O que é o Debezium?
-O Debezium é uma plataforma distribuída que transforma seus bancos de dados existentes em fluxos de eventos, para que os aplicativos possam reagir rapidamente a cada alteração no nível de linha nos bancos de dados. O Debezium é construído sobre o Kafka e fornece conectores compatíveis com o Kafka Connect que monitoram sistemas específicos de gerenciamento de banco de dados. O Debezium registra o histórico de alterações de dados nos logs Kafka, para que seu aplicativo possa ser parado e reiniciado a qualquer momento e consuma facilmente todos os eventos que ele perdeu enquanto não estava em execução, garantindo que todos os eventos sejam processados ​​corretamente e completamente.
 
 ## PostgreSQL no Amazon RDS
 

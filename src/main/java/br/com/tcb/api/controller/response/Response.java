@@ -1,4 +1,4 @@
-package br.com.intelector.api.controller.response;
+package br.com.tcb.api.controller.response;
 
 import java.util.ArrayList;
 import java.util.List;

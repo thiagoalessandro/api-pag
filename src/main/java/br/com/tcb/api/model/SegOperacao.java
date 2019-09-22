@@ -1,9 +1,6 @@
-package br.com.intelector.api.model;
+package br.com.tcb.api.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

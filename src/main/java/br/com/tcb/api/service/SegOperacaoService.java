@@ -1,12 +1,10 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.controller.utils.StringUtils;
-import br.com.intelector.api.model.SegOperacao;
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
-import br.com.intelector.api.repository.SegOperacaoRepository;
+import br.com.tcb.api.controller.utils.StringUtils;
+import br.com.tcb.api.model.SegOperacao;
+import br.com.tcb.api.model.enums.SituacaoRegistroEnum;
+import br.com.tcb.api.repository.SegOperacaoRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

@@ -1,9 +1,9 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.controller.utils.StringUtils;
-import br.com.intelector.api.model.AbstractEntity;
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
-import br.com.intelector.api.repository.GenericRepository;
+import br.com.tcb.api.controller.utils.StringUtils;
+import br.com.tcb.api.model.AbstractEntity;
+import br.com.tcb.api.model.enums.SituacaoRegistroEnum;
+import br.com.tcb.api.repository.GenericRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

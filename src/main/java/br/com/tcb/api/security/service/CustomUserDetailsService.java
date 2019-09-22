@@ -1,10 +1,10 @@
-package br.com.intelector.api.security.service;
+package br.com.tcb.api.security.service;
 
-import br.com.intelector.api.model.SegMenu;
-import br.com.intelector.api.model.SegUsuario;
-import br.com.intelector.api.security.UserDetailsFactory;
-import br.com.intelector.api.service.SegMenuService;
-import br.com.intelector.api.service.SegUsuarioService;
+import br.com.tcb.api.model.SegMenu;
+import br.com.tcb.api.model.SegUsuario;
+import br.com.tcb.api.security.UserDetailsFactory;
+import br.com.tcb.api.service.SegMenuService;
+import br.com.tcb.api.service.SegUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
-package br.com.intelector.api;
+package br.com.tcb.api;
 
-import br.com.intelector.api.model.*;
-import br.com.intelector.api.service.*;
+import br.com.tcb.api.model.*;
+import br.com.tcb.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
@@ -39,6 +39,9 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
 
         SegOperacao cadastrar = new SegOperacao("Cadastrar", "CADA", "Cadastrar Registro", "add", true, false, false, false);
         listOperacao.add(cadastrar);
+
+        SegOperacao upload = new SegOperacao("Upload", "UPLD", "Upload Arquivo", "cloud_upload", true, false, false, false);
+        listOperacao.add(upload);
 
         SegOperacao consultar = new SegOperacao("Consultar", "CONS", "Consultar Registros", "list", true, false, false, false);
         listOperacao.add(consultar);
@@ -161,30 +164,48 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
 
         listFuncionalidade.add(funcionalidadeUsuario);
 
+        List<SegFuncionalidadeOperacao> listFuncionalidadeOperacaoUploadCnab = new ArrayList<SegFuncionalidadeOperacao>();
+
+        SegFuncionalidade funcionalidadeEnviarArquivo = new SegFuncionalidade("Enviar Arquivo", "UPAR", "Upload CNAB", listFuncionalidadeOperacaoUploadCnab);
+        SegFuncionalidadeOperacao uploadCnab = new SegFuncionalidadeOperacao(funcionalidadeEnviarArquivo, upload, true, 1);
+        listFuncionalidadeOperacaoUploadCnab.add(uploadCnab);
+
+        listFuncionalidade.add(funcionalidadeEnviarArquivo);
+
         funcionalidadeService.saveAll(listFuncionalidade);
 
-        //Menu x SubMenu
-        List<SegSubMenu> listSubMenu = new ArrayList<SegSubMenu>();
+        //menu REMESSA
+        List<SegSubMenu> listSubMenuRemessa = new ArrayList<SegSubMenu>();
 
-        SegMenu menuSeguranca = new SegMenu("Segurança", "lock", 1, listSubMenu);
+        SegMenu menuRemessa = new SegMenu("Remessa", "folder", 1, listSubMenuRemessa);
+
+        SegSubMenu subMenuUploadCnab = new SegSubMenu(menuRemessa, funcionalidadeEnviarArquivo, "cloud_upload", 1);
+        listSubMenuRemessa.add(subMenuUploadCnab);
+
+        menuService.save(menuRemessa);
+
+        //Menu SEGURANÇA
+        List<SegSubMenu> listSubMenuSeguranca = new ArrayList<SegSubMenu>();
+
+        SegMenu menuSeguranca = new SegMenu("Segurança", "lock", 2, listSubMenuSeguranca);
 
         SegSubMenu subMenuOperacao = new SegSubMenu(menuSeguranca, funcionalidadeOperacao, "build", 1);
-        listSubMenu.add(subMenuOperacao);
+        listSubMenuSeguranca.add(subMenuOperacao);
 
         SegSubMenu subMenufuncionalidade = new SegSubMenu(menuSeguranca, funcionalidadeFuncionalidade, "web", 2);
-        listSubMenu.add(subMenufuncionalidade);
+        listSubMenuSeguranca.add(subMenufuncionalidade);
 
         SegSubMenu subMenuMenu = new SegSubMenu(menuSeguranca, funcionalidadeMenu, "format_list_numbered", 3);
-        listSubMenu.add(subMenuMenu);
+        listSubMenuSeguranca.add(subMenuMenu);
 
         SegSubMenu subMenuPerfil = new SegSubMenu(menuSeguranca, funcionalidadePerfil, "how_to_reg", 4);
-        listSubMenu.add(subMenuPerfil);
+        listSubMenuSeguranca.add(subMenuPerfil);
 
         SegSubMenu subMenuPermissao = new SegSubMenu(menuSeguranca, funcionalidadePermissao, "touch_app", 5);
-        listSubMenu.add(subMenuPermissao);
+        listSubMenuSeguranca.add(subMenuPermissao);
 
         SegSubMenu subMenuUsuario = new SegSubMenu(menuSeguranca, funcionalidadeUsuario, "account_circle", 6);
-        listSubMenu.add(subMenuUsuario);
+        listSubMenuSeguranca.add(subMenuUsuario);
 
         menuService.save(menuSeguranca);
 
@@ -213,6 +234,14 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
         SegPermissao permissaoAdministradorUsuarioExcluir = new SegPermissao();
         permissaoAdministradorUsuarioExcluir.setFuncionalidadeOperacao(usuarioExcluir);
         listPermissao.add(permissaoAdministradorUsuarioExcluir);
+
+        /*
+         * PERMISSÃO UPLOAD
+         **/
+
+        SegPermissao permissaoAdministradorUploadCnab = new SegPermissao();
+        permissaoAdministradorUploadCnab.setFuncionalidadeOperacao(uploadCnab);
+        listPermissao.add(permissaoAdministradorUploadCnab);
 
         /*
          * PERMISSÃO PERFIL
@@ -287,6 +316,8 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
         permissaoAdministradorUsuarioConsultar.setPerfil(perfilAdministrador);
         permissaoAdministradorUsuarioVisualizar.setPerfil(perfilAdministrador);
 
+        // UPLOAD CNAB
+        permissaoAdministradorUploadCnab.setPerfil(perfilAdministrador);
 
         segPerfilService.save(perfilAdministrador);
 

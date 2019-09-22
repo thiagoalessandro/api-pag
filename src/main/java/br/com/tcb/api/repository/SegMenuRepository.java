@@ -1,10 +1,7 @@
-package br.com.intelector.api.repository;
+package br.com.tcb.api.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.tcb.api.model.SegMenu;
 import org.springframework.stereotype.Repository;
-
-import br.com.intelector.api.model.SegMenu;
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
 
 @Repository
 public interface SegMenuRepository extends GenericRepository<SegMenu, Long>{

@@ -1,7 +1,7 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.controller.response.UserAuthDTO;
-import br.com.intelector.api.security.dto.UserDetailsDTO;
+import br.com.tcb.api.controller.response.UserAuthDTO;
+import br.com.tcb.api.security.dto.UserDetailsDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

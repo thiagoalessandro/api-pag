@@ -1,9 +1,9 @@
-package br.com.intelector.api.model.converters;
+package br.com.tcb.api.model.converters;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
+import br.com.tcb.api.model.enums.SituacaoRegistroEnum;
 
 @Converter(autoApply = true)
 public class SituacaoConverter implements AttributeConverter<SituacaoRegistroEnum, String> {

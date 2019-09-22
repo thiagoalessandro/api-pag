@@ -1,6 +1,6 @@
-package br.com.intelector.api.security.dto;
+package br.com.tcb.api.security.dto;
 
-import br.com.intelector.api.model.SegMenu;
+import br.com.tcb.api.model.SegMenu;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

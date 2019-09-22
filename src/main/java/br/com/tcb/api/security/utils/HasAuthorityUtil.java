@@ -1,4 +1,4 @@
-package br.com.intelector.api.security.utils;
+package br.com.tcb.api.security.utils;
 
 public class HasAuthorityUtil {
 

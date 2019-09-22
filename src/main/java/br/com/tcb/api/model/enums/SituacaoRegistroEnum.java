@@ -1,4 +1,4 @@
-package br.com.intelector.api.model.enums;
+package br.com.tcb.api.model.enums;
 
 public enum SituacaoRegistroEnum implements IBasicEnum {
 

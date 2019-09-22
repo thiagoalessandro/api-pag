@@ -1,6 +1,6 @@
-package br.com.intelector.api.controller.enums;
+package br.com.tcb.api.controller.enums;
 
-import br.com.intelector.api.model.enums.IBasicEnum;
+import br.com.tcb.api.model.enums.IBasicEnum;
 
 public enum ValidateTypeEnum implements IBasicEnum {
 

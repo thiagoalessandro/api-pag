@@ -1,7 +1,6 @@
-package br.com.intelector.api.repository;
+package br.com.tcb.api.repository;
 
-import br.com.intelector.api.model.SegUsuario;
-import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.tcb.api.model.SegUsuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

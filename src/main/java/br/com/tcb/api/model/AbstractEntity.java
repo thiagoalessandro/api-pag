@@ -1,13 +1,12 @@
-package br.com.intelector.api.model;
+package br.com.tcb.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Optional;
 
 import javax.persistence.*;
 
-import br.com.intelector.api.model.enums.SituacaoRegistroEnum;
-import br.com.intelector.api.security.dto.UserDetailsDTO;
+import br.com.tcb.api.model.enums.SituacaoRegistroEnum;
+import br.com.tcb.api.security.dto.UserDetailsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

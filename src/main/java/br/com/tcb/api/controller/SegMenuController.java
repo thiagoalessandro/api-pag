@@ -1,9 +1,9 @@
-package br.com.intelector.api.controller;
+package br.com.tcb.api.controller;
 
-import br.com.intelector.api.controller.response.Response;
-import br.com.intelector.api.controller.utils.ResourceApi;
-import br.com.intelector.api.model.SegMenu;
-import br.com.intelector.api.service.SegMenuService;
+import br.com.tcb.api.controller.response.Response;
+import br.com.tcb.api.controller.utils.ResourceApi;
+import br.com.tcb.api.model.SegMenu;
+import br.com.tcb.api.service.SegMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

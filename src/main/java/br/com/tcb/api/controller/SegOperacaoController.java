@@ -1,9 +1,9 @@
-package br.com.intelector.api.controller;
+package br.com.tcb.api.controller;
 
-import br.com.intelector.api.controller.utils.AbstractController;
-import br.com.intelector.api.controller.utils.ResourceApi;
-import br.com.intelector.api.model.SegOperacao;
-import br.com.intelector.api.service.SegOperacaoService;
+import br.com.tcb.api.controller.utils.AbstractController;
+import br.com.tcb.api.controller.utils.ResourceApi;
+import br.com.tcb.api.model.SegOperacao;
+import br.com.tcb.api.service.SegOperacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

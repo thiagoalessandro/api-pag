@@ -1,4 +1,4 @@
-package br.com.intelector.api.controller.utils;
+package br.com.tcb.api.controller.utils;
 
 public class ResourceApi {
 

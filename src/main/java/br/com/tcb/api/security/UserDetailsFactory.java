@@ -1,10 +1,10 @@
-package br.com.intelector.api.security;
+package br.com.tcb.api.security;
 
-import br.com.intelector.api.model.SegFuncionalidadeOperacao;
-import br.com.intelector.api.model.SegMenu;
-import br.com.intelector.api.model.SegPermissao;
-import br.com.intelector.api.model.SegUsuario;
-import br.com.intelector.api.security.dto.UserDetailsDTO;
+import br.com.tcb.api.model.SegFuncionalidadeOperacao;
+import br.com.tcb.api.model.SegMenu;
+import br.com.tcb.api.model.SegPermissao;
+import br.com.tcb.api.model.SegUsuario;
+import br.com.tcb.api.security.dto.UserDetailsDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

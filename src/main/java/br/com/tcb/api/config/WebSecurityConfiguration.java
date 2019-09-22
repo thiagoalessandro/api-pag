@@ -1,4 +1,4 @@
-package br.com.intelector.api.config;
+package br.com.tcb.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

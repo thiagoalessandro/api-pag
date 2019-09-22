@@ -1,4 +1,4 @@
-package br.com.intelector.api.model.converters;
+package br.com.tcb.api.model.converters;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

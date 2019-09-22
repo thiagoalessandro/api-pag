@@ -1,6 +1,6 @@
-package br.com.intelector.api.config;
+package br.com.tcb.api.config;
 
-import br.com.intelector.api.config.utils.ConfigurationAppUtil;
+import br.com.tcb.api.config.utils.ConfigurationAppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

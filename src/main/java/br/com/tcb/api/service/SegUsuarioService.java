@@ -1,11 +1,7 @@
-package br.com.intelector.api.service;
+package br.com.tcb.api.service;
 
-import br.com.intelector.api.model.SegUsuario;
-import br.com.intelector.api.repository.GenericRepository;
-import br.com.intelector.api.repository.SegUsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
+import br.com.tcb.api.model.SegUsuario;
+import br.com.tcb.api.repository.SegUsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
