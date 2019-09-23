@@ -2,6 +2,9 @@
 
 # Debezium
 
+## O que é o Debezium?
+O Debezium é uma plataforma distribuída que transforma seus bancos de dados existentes em fluxos de eventos, para que os aplicativos possam reagir rapidamente a cada alteração no nível de linha nos bancos de dados. O Debezium é construído sobre o Kafka e fornece conectores compatíveis com o Kafka Connect que monitoram sistemas específicos de gerenciamento de banco de dados. O Debezium registra o histórico de alterações de dados nos logs Kafka, para que seu aplicativo possa ser parado e reiniciado a qualquer momento e consuma facilmente todos os eventos que ele perdeu enquanto não estava em execução, garantindo que todos os eventos sejam processados ​​corretamente e completamente.
+
 ## PostgreSQL no Amazon RDS
 
 É possível monitorar o banco de dados PostgreSQL em execução no Amazon RDS . Para executá-lo, você deve atender às seguintes condições
@@ -160,7 +163,7 @@ register-postgres-connector.json
 
 Criar tópicos
 ```
-$ kafka-topics --zookeeper 127.0.0.1:2181 --create --topic first_topic --partition 3 --replication-factor 1
+$ kafka-topics --zookeeper zookeeper:2181 --create --topic first_topic --partitions 3 --replication-factor 1
 ```
 
 Listar tópicos
@@ -184,13 +187,28 @@ kafka-topics --zookeeper zookeeper:2181 --topic database.public.remessa --descri
 Consumindo mensagens com Consumers
 
 ```
-kafka-console-consumer --bootstrap-server kafka:9092 --topic database.public.remessa --from-beginning
+kafka-console-consumer --bootstrap-server kafka:9092 --topic database.public.event_notification --from-beginning
+```
+
+AVRO - Consumindo mensagens serializadas
+```
+kafka-avro-console-consumer --bootstrap-server localhost:9092 --topic database.public.remessa
 ```
 
 Verificar slot de replicação
 ```
 select pg_drop_replication_slot('postgres');
 select * from pg_replication_slots;
+```
+
+Exemplo tabela
+
+```sql
+create table event_notification(id int primary key, mensagem varchar(10));
+insert into event_notification values(1, 'msg 1');
+
+create table event_validacao(id int primary key, mensagem varchar(10));
+insert into event_validacao values(1, 'msg 1');
 ```
 
 ## Referências
@@ -210,3 +228,5 @@ https://archive.cloudera.com/kafka/kafka/2/kafka-0.10.0-kafka2.1.0/connect.html
 https://medium.com/data-hackers/mensageria-de-alta-performance-com-apache-kafka-2-ac6e5c0538e1
 
 https://gist.github.com/jpsoroulas/30e9537138ca62a79fe261cff7ceb716
+
+https://aseigneurin.github.io/2018/08/03/kafka-tutorial-5-consuming-avro.html
