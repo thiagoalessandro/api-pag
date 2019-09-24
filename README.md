@@ -143,20 +143,26 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
 register-postgres-connector.json
 ```json
 {
-  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-      "database.hostname": "database",
-      "database.port": "5432",
-      "database.user": "postgres",
-      "database.password": "postgres",
-      "database.dbname": "db_tcb_main",
-      "database.server.name": "database",
-      "database.history.kafka.topic": "schema-changes.db_tcb_main",
-      "plugin.name": "wal2json",
-      "database.whitelist": "db_tcb_main",
-      "include.schema.changes": "true",
-      "database.history.kafka.bootstrap.servers": "localhost:9092"
+  "name": "connector_tcb_validador",
+  "config": {
+    "slot.name": "tcb_validador",
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "192.168.40.21",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "db_tcb_main",
+    "database.server.name": "database",
+    "database.whitelist": "db_tcb_main",
+    "database.history.kafka.bootstrap.servers": "localhost:9092",
+    "plugin.name": "wal2json",
+    "table.whitelist": "public.event_notification",
+    "include.schema.changes": "false",
+    "snapshot.mode": "initial",
+    "snapshot.lock.timeout.ms": "10000"
   }
 }
+
 ```
 
 ## KAFKA
